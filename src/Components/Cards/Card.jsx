@@ -2,7 +2,7 @@ import React from "react";
 import styles from './Card.module.css';
 import uniqueId from "../helpers";
 
-const Card = ({ data, filteredData }) => {
+const Card = ({ data }) => {
     
     return (
         <div className={styles.grid}>
