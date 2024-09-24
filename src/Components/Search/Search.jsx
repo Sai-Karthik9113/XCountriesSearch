@@ -1,31 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../Cards/Card";
 import styles from './Search.module.css';
 
 const Navbar = ({ data }) => {
     const [searchInput, setSearchInput] = useState('');
-    // const [debounceQuery, setDebounceQuery] = useState('');
+    const [debounceQuery, setDebounceQuery] = useState('');
 
     const handleSearch = (event) => {
         setSearchInput(event.target.value);
     }
+
     const filteredData = data.filter((val) => {
-        return val.name.common.toLowerCase().includes(searchInput.toLowerCase());
+        return val.name.common.toLowerCase().includes(debounceQuery.toLowerCase());
     });
 
-    // const filteredData = data.filter((val) => {
-    //     return val.name.common.toLowerCase().includes(debounceQuery.toLowerCase());
-    // });
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebounceQuery(searchInput);
+        }, 300);
 
-    // useEffect(() => {
-    //     const handler = setTimeout(() => {
-    //         setDebounceQuery(searchInput);
-    //     }, 300);
-
-    //     return () => {
-    //         clearTimeout(handler);
-    //     }
-    // }, [searchInput]);
+        return () => {
+            clearTimeout(handler);
+        }
+    }, [searchInput]);
 
     return (
         <>
